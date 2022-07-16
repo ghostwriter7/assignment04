@@ -7,9 +7,9 @@
 .table {
   position: relative;
   min-height: 50vh;
+  background-color: var(--surface-a);
 
   &__actions {
-    background-color: var(--surface-a);
     display: flex;
     justify-content: space-between;
     padding: .5rem;
