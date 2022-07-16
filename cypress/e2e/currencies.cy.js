@@ -1,6 +1,15 @@
 describe('Currencies App', () => {
   beforeEach(() => {
     cy.visit('http://localhost:4200');
+    cy.intercept('https://api.nbp.pl/api/exchangerates/tables/A/?format=json', {
+      fixture: 'currencies-today'
+    });
+    cy.intercept('https://api.nbp.pl/api/exchangerates/tables/A/?format=json', {
+      fixture: 'currencies-01-07-2022'
+    });
+    cy.intercept('https://api.nbp.pl/api/exchangerates/tables/A/1700-07-01/?format=json', {
+      fixture: 'error'
+    });
     cy.get('.p-selectbutton .p-button').first().as('darkBtn');
     cy.get('.p-selectbutton .p-button').last().as('lightBtn');
     cy.get('table tbody tr').as('rows');

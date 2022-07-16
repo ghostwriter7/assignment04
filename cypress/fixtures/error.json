@@ -1,0 +1,13 @@
+{
+  "headers": {
+    "normalizedNames": {},
+    "lazyUpdate": null
+  },
+  "status": 404,
+  "statusText": "Bark danych / No data available",
+  "url": "https://api.nbp.pl/api/exchangerates/tables/A/1700-07-08/?format=json",
+  "ok": false,
+  "name": "HttpErrorResponse",
+  "message": "Http failure response for https://api.nbp.pl/api/exchangerates/tables/A/1700-07-08/?format=json: 404 Bark danych / No data available",
+  "error": "404 NotFound - Bark danych / No data available"
+}
