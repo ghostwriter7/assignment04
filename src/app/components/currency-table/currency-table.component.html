@@ -1,9 +1,9 @@
 <div class="table">
+  <p-progressSpinner *ngIf="isLoading" class="table__spinner" strokeWidth="10"></p-progressSpinner>
   <p-table
     [value]="currencies"
-    [loading]="isLoading"
     [paginator]="true"
-    [rows]="6"
+    [rows]="5"
     [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [rowsPerPageOptions]="[5,10,15]"

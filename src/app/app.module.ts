@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {TableModule} from 'primeng/table';
 
@@ -25,6 +26,7 @@ import { CurrencyTableComponent } from './components/currency-table/currency-tab
     HttpClientModule,
     TableModule,
     ButtonModule,
+    ProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
