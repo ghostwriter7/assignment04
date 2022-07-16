@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Currency} from '../interfaces';
+import {map, Observable} from 'rxjs';
+import {ApiResponse, Currency} from '../interfaces';
 
 @Injectable({providedIn: 'root'})
 export class CurrencyService {
@@ -11,7 +11,9 @@ export class CurrencyService {
 
     getLatestCurrencies(): Observable<Currency[]> {
       const url = `${this.API}/?format=json`;
-      return this.http.get<Currency[]>(url);
+      return this.http.get<ApiResponse[]>(url).pipe(
+        map(response => response[0].rates.map(({code, currency, mid}) => ({ symbol: code, name: currency, exchangeRate: mid})))
+      );
     }
 
     getCurrenciesByDate(date: string): Observable<Currency[]> {

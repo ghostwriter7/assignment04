@@ -1,16 +1,22 @@
-<p-table [value]="currencies">
+<p-table
+  [value]="currencies"
+  [paginator]="true"
+  [rows]="6"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[5,10,15]"
+>
   <ng-template pTemplate="header">
     <tr>
-      <th>Symbol</th>
-      <th>Name</th>
-      <th>Exchange Rate</th>
+      <th *ngFor="let col of cols">{{ col.header }}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-currency>
     <tr>
-      <td>{{currency.symbol}}</td>
-      <td>{{currency.name}}</td>
-      <td>{{currency.exchangeRate}}</td>
+      <td *ngFor="let col of cols">{{ currency[col.field] }}</td>
     </tr>
+  </ng-template>
+  <ng-template let-item pTemplate="paginatordropdownitem">
+    {{item.value}} - per page
   </ng-template>
 </p-table>
