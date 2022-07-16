@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {delay, finalize, tap} from 'rxjs';
 import {Currency, TableColumn} from '../../shared/interfaces';
 import {CurrencyService} from '../../shared/services';
 
@@ -14,11 +15,16 @@ export class CurrencyTableComponent implements OnInit {
     { field: 'exchangeRate', header: 'Exchange Rate'}
   ];
   currencies!: Currency[];
+  isLoading!: boolean;
 
   constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
-    this.currencyService.getLatestCurrencies().subscribe(currencies => {
+    this.currencyService.getLatestCurrencies()
+      .pipe(tap(() => this.isLoading = true),
+        delay(750),
+        finalize(() => this.isLoading = false))
+      .subscribe(currencies => {
       this.currencies = currencies;
     })
   }
