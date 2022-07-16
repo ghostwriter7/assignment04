@@ -2,6 +2,7 @@
   <div class="table__actions">
     <p-calendar [formControl]="dateControl" dateFormat="yy-mm-dd" [maxDate]="today"></p-calendar>
   </div>
+  <p-messages></p-messages>
   <p-progressSpinner *ngIf="isLoading" class="table__spinner" strokeWidth="10"></p-progressSpinner>
   <p-table
     [value]="currencies"

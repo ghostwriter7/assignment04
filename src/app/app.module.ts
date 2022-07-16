@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MessageService} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
+import {MessagesModule} from 'primeng/messages';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {TableModule} from 'primeng/table';
@@ -30,8 +32,11 @@ import { CurrencyTableComponent } from './components/currency-table/currency-tab
     ButtonModule,
     ProgressSpinnerModule,
     CalendarModule,
+    MessagesModule,
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

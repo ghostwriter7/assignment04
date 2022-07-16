@@ -1,9 +1,11 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {delay, filter, finalize, map, pairwise, startWith, switchMap, tap} from 'rxjs';
+import {catchError, delay, filter, finalize, map, of, pairwise, startWith, switchMap, tap} from 'rxjs';
 import {DateHelper} from '../../shared/helpers/date.helper';
 import {Currency, TableColumn} from '../../shared/interfaces';
 import {CurrencyService} from '../../shared/services';
+import {NotificationService} from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-currency-table',
@@ -12,16 +14,18 @@ import {CurrencyService} from '../../shared/services';
 })
 export class CurrencyTableComponent implements OnInit {
   cols: TableColumn[] = [
-    { field: 'symbol', header: 'Symbol'},
-    { field: 'name', header: 'Name'},
-    { field: 'exchangeRate', header: 'Exchange Rate'}
+    {field: 'symbol', header: 'Symbol'},
+    {field: 'name', header: 'Name'},
+    {field: 'exchangeRate', header: 'Exchange Rate'},
   ];
   currencies!: Currency[];
   dateControl = new FormControl(new Date());
   isLoading!: boolean;
   today = new Date();
 
-  constructor(private currencyService: CurrencyService) {}
+  constructor(private currencyService: CurrencyService,
+  private notificationService: NotificationService) {
+  }
 
   ngOnInit(): void {
     this.fetchLatestCurrencies();
@@ -33,8 +37,11 @@ export class CurrencyTableComponent implements OnInit {
       .pipe(tap(() => this.isLoading = true),
         delay(750),
         finalize(() => this.isLoading = false))
-      .subscribe(currencies => {
-        this.currencies = currencies;
+      .subscribe({
+        next: currencies => {
+          this.currencies = currencies;
+        },
+        error: this.handleError.bind(this),
       });
   }
 
@@ -47,15 +54,22 @@ export class CurrencyTableComponent implements OnInit {
       filter(([prev, cur]) => prev !== cur),
       map(([_, cur]) => cur),
       switchMap((date) => {
+        this.notificationService.clear();
         return this.currencyService.getCurrenciesByDate(date).pipe(
           tap(() => this.isLoading = true),
           delay(750),
-          finalize(() => this.isLoading = false)
+          catchError((error) => {
+            this.handleError(error);
+            return of([]);
+          } ),
+        finalize(() => this.isLoading = false),
         )
       }),
-    ).subscribe(currencies => {
-      this.currencies = currencies;
-    });
+    ).subscribe( currencies => this.currencies = currencies);
   }
 
+  private handleError(error: HttpErrorResponse): void {
+    this.notificationService.clear();
+    this.notificationService.add('error', error.statusText);
+  }
 }
