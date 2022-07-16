@@ -1,6 +1,7 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {Table} from 'primeng/table';
 import {catchError, delay, filter, finalize, map, of, pairwise, startWith, switchMap, tap} from 'rxjs';
 import {DateHelper} from '../../shared/helpers/date.helper';
 import {Currency, TableColumn} from '../../shared/interfaces';
@@ -30,6 +31,10 @@ export class CurrencyTableComponent implements OnInit {
   ngOnInit(): void {
     this.fetchLatestCurrencies();
     this.initDateValueChangeSub();
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 
   private fetchLatestCurrencies(): void {

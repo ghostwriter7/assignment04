@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MessageService} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
+import {InputTextModule} from 'primeng/inputtext';
 import {MessagesModule} from 'primeng/messages';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -33,6 +34,7 @@ import { CurrencyTableComponent } from './components/currency-table/currency-tab
     ProgressSpinnerModule,
     CalendarModule,
     MessagesModule,
+    InputTextModule,
   ],
   providers: [
     MessageService

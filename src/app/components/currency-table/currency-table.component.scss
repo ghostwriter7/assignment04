@@ -8,6 +8,11 @@
   position: relative;
   min-height: 50vh;
 
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__spinner {
     position: absolute;
     top: 50%;

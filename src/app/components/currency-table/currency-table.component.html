@@ -1,20 +1,30 @@
 <div class="table">
-  <div class="table__actions">
-    <p-calendar [formControl]="dateControl" dateFormat="yy-mm-dd" [maxDate]="today"></p-calendar>
-  </div>
   <p-messages></p-messages>
   <p-progressSpinner *ngIf="isLoading" class="table__spinner" strokeWidth="10"></p-progressSpinner>
   <p-table
+    #table
     [value]="currencies"
     [paginator]="true"
     [rows]="5"
     [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [rowsPerPageOptions]="[5,10,15]"
+    [globalFilterFields]="['name', 'symbol', 'exchangeRate']"
   >
+    <ng-template pTemplate="caption">
+      <div class="table__actions">
+        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                (click)="clear(table)">
+        </button>
+        <p-calendar [formControl]="dateControl" dateFormat="yy-mm-dd" [maxDate]="today"></p-calendar>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of cols">{{ col.header }}</th>
+        <th *ngFor="let col of cols">
+          {{ col.header }}
+        <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-currency>
