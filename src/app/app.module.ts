@@ -1,9 +1,10 @@
 import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {TableModule} from 'primeng/table';
@@ -23,10 +24,12 @@ import { CurrencyTableComponent } from './components/currency-table/currency-tab
     BrowserAnimationsModule,
     SelectButtonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     TableModule,
     ButtonModule,
     ProgressSpinnerModule,
+    CalendarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

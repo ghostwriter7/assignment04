@@ -18,6 +18,8 @@ export class CurrencyService {
 
     getCurrenciesByDate(date: string): Observable<Currency[]> {
       const url = `${this.API}/${date}/?format=json`;
-      return this.http.get<Currency[]>(url);
+      return this.http.get<ApiResponse[]>(url).pipe(
+        map(response => response[0].rates.map(({code, currency, mid}) => ({ symbol: code, name: currency, exchangeRate: mid})))
+      );
     }
 }
