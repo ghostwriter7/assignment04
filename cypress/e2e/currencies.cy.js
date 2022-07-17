@@ -10,15 +10,20 @@ describe('Currencies App', () => {
   });
 
   it('should have dark theme', () => {
+    cy.get('@lightBtn').click();
     cy.get('@darkBtn').click();
-    cy.get('@darkBtn').should('have.class', 'p-highlight');
+    cy.get('@darkBtn').should('have.class', 'p-highlight').should(() => {
+      expect(localStorage.getItem('theme')).to.eq('dark');
+    });
     cy.get('@lightBtn').should('not.have.class', 'p-highlight');
     cy.get('#app-theme').should('have.attr', 'href').and('eq', 'dark.css');
   });
 
   it('should have light theme', () => {
     cy.get('@lightBtn').click();
-    cy.get('@lightBtn').should('have.class', 'p-highlight');
+    cy.get('@lightBtn').should('have.class', 'p-highlight').should(() => {
+      expect(localStorage.getItem('theme')).to.eq('light');
+    });
     cy.get('@darkBtn').should('not.have.class', 'p-highlight');
     cy.get('#app-theme').should('have.attr', 'href').and('eq', 'light.css');
   });
